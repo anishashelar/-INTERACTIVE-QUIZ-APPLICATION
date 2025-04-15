@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Dance Style</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="index-container">
+        <h1 class="bounce-in">Choose Your Dance Style! 💃🕺</h1>
+        <p class="fade-in">Pick a dance style and start the quiz!</p>
+
+        <div class="dance-options">
+            <button class="dance-btn" onclick="startQuiz('hiphop')">Hip-Hop</button>
+            <button class="dance-btn" onclick="startQuiz('ballet')">Ballet</button>
+            <button class="dance-btn" onclick="startQuiz('salsa')">Salsa</button>
+            <button class="dance-btn" onclick="startQuiz('breakdance')">Breakdance</button>
+            <button class="dance-btn" onclick="startQuiz('jazz')">Jazz</button>
+        </div>
+    </div>
+
+    <script>
+        function startQuiz(danceStyle) {
+            window.location.href = "quiz.html?style=" + danceStyle;
+        }
+    </script>
+</body>
+</html>

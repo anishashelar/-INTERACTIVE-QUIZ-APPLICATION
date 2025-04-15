@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1 id="quiz-title"></h1>
+        <p class="question" id="question-text"></p>
+        <div class="options" id="options-container"></div>
+       <!-- <button id="next-btn" class="next-btn" onclick="nextQuestion()">Next</button>-->
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const danceStyle = urlParams.get('style');
+
+        // Dance-specific questions
+        const quizData = {
+            hiphop: [
+                { question: "Who is known as the 'King of Hip-Hop'?", options: ["Michael Jackson", "Eminem", "Chris Brown", "Usher"], answer: "Eminem" },
+                { question: "Which country is hip-hop believed to have originated from?", options: ["USA", "UK", "France", "Brazil"], answer: "USA" },
+                { question: "What is a famous hip-hop dance move?", options: ["Plié", "Moonwalk", "Windmill", "Robot"], answer: "Windmill" },
+                { question: "Which of these is a hip-hop dance style?", options: ["Tutting", "Pas de Deux", "Salsa Shines", "Fouetté"], answer: "Tutting" },
+                { question: "Which hip-hop artist popularized the 'Crip Walk'?", options: ["Drake", "Snoop Dogg", "Jay-Z", "Lil Wayne"], answer: "Snoop Dogg" }
+            ],
+            ballet: [
+                { question: "What is the term for a 360-degree turn in ballet?", options: ["Pirouette", "Fouetté", "Plié", "Arabesque"], answer: "Pirouette" },
+                { question: "Which country is ballet believed to have originated from?", options: ["France", "Italy", "Russia", "Germany"], answer: "Italy" },
+                { question: "Which of these is a famous ballet?", options: ["Swan Lake", "Hamilton", "La La Land", "The Nutcracker"], answer: "Swan Lake" },
+                { question: "What does 'en pointe' mean?", options: ["Dancing on toes", "Jumping high", "Spinning fast", "Leaping forward"], answer: "Dancing on toes" },
+                { question: "Which ballet move means 'to bend'?", options: ["Plié", "Jeté", "Relevé", "Tendu"], answer: "Plié" }
+            ],
+            salsa: [
+                { question: "Where did salsa dancing originate?", options: ["Cuba", "Argentina", "Spain", "Brazil"], answer: "Cuba" },
+                { question: "What is a common salsa dance step?", options: ["Shimmy", "Cross Body Lead", "Fouetté", "Wave"], answer: "Cross Body Lead" },
+                { question: "Which music genre is salsa closely related to?", options: ["Reggae", "Jazz", "Latin", "Hip-Hop"], answer: "Latin" },
+                { question: "What is a famous salsa dance style?", options: ["New York Style", "Tap Dance", "Tango", "Krumping"], answer: "New York Style" },
+                { question: "What is a partner connection technique in salsa?", options: ["Breakaway", "Frame", "Plié", "Flare"], answer: "Frame" }
+            ],
+            breakdance: [
+                { question: "What is a famous breakdancing move?", options: ["Headspin", "Pas de Deux", "Foxtrot", "Moonwalk"], answer: "Headspin" },
+                { question: "Which dance culture is breakdancing a part of?", options: ["Ballet", "Hip-Hop", "Salsa", "Tango"], answer: "Hip-Hop" },
+                { question: "Which body part is often used for spins in breakdancing?", options: ["Head", "Elbows", "Feet", "Hands"], answer: "Head" },
+                { question: "What is the term for a handstand flip in breakdance?", options: ["Windmill", "Flare", "Toe Loop", "Shuffle"], answer: "Flare" },
+                { question: "Which country is breakdancing believed to have started in?", options: ["USA", "Japan", "Brazil", "Germany"], answer: "USA" }
+            ],
+            jazz: [
+                { question: "Which city is considered the birthplace of jazz dance?", options: ["New Orleans", "Paris", "New York", "Chicago"], answer: "New Orleans" },
+                { question: "Which of these is a jazz dance move?", options: ["Jazz Hands", "Rond de Jambe", "Tango Walk", "Pas de Deux"], answer: "Jazz Hands" },
+                { question: "Which music genre influenced jazz dance?", options: ["Hip-Hop", "Blues", "Salsa", "Classical"], answer: "Blues" },
+                { question: "What is a key characteristic of jazz dance?", options: ["Graceful and slow", "Explosive and rhythmic", "Rigid and structured", "Minimal movement"], answer: "Explosive and rhythmic" },
+                { question: "What is a jazz leap called?", options: ["Grand Jeté", "Lindy Hop", "Shuffle", "Pirouette"], answer: "Grand Jeté" }
+            ]
+        };
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = quizData[danceStyle];
+
+        document.getElementById("quiz-title").textContent = danceStyle.toUpperCase() + " QUIZ";
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                window.location.href = "result.html?score=" + score + "&total=" + questions.length;
+                return;
+            }
+
+            let questionData = questions[currentQuestionIndex];
+            document.getElementById("question-text").textContent = questionData.question;
+            let optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            questionData.options.forEach(option => {
+                let btn = document.createElement("button");
+                btn.textContent = option;
+                btn.classList.add("option");
+                btn.onclick = function () {
+                    if (option === questionData.answer) score++;
+                    nextQuestion();
+                };
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

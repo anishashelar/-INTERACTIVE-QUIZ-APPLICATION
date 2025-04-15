@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="result-container">
+        <h1>Your Quiz Result</h1>
+        <p class="score" id="score-text"></p>
+        <button class="home-btn" onclick="goHome()">Back to Home</button>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        let score = params.get("score");
+        let total = params.get("total");
+
+        document.getElementById("score-text").textContent = `You scored ${score} out of ${total}! 🎉`;
+
+        function goHome() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
